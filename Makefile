@@ -1,10 +1,10 @@
 #
 # Build targets
 #
-BINARIES     := dsme dsme-exec-helper
+## QUARANTINE BINARIES     := dsme dsme-exec-helper
 A_LIBRARIES  := libdsme
 SO_LIBRARIES := libdsme libdsme_dbus_if
-SUBDIRS      := util modules
+## QUARANTINE SUBDIRS      := util modules
 
 VERSION := 0.60.28
 
@@ -15,9 +15,9 @@ INSTALL_PERM  := 644
 INSTALL_OWNER := $(shell id -u)
 INSTALL_GROUP := $(shell id -g)
 
-INSTALL_BINARIES                      := dsme dsme-exec-helper
-$(INSTALL_BINARIES)    : INSTALL_PERM := 755
-$(INSTALL_BINARIES)    : INSTALL_DIR  := $(DESTDIR)/sbin
+## QUARANTINE INSTALL_BINARIES                      := dsme dsme-exec-helper
+## QUARANTINE $(INSTALL_BINARIES)    : INSTALL_PERM := 755
+## QUARANTINE $(INSTALL_BINARIES)    : INSTALL_DIR  := $(DESTDIR)/sbin
 INSTALL_A_LIBRARIES                   := libdsme.a
 $(INSTALL_A_LIBRARIES) : INSTALL_DIR  := $(DESTDIR)/usr/lib
 INSTALL_SO_LIBRARIES                  := libdsme.so libdsme_dbus_if.so
@@ -65,20 +65,20 @@ endif
 # Target composition and overrides
 #
 
-# dsme
-dsme_C_OBJS             := dsme.o modulebase.o timers.o \
-                           logging.o oom.o mainloop.o \
-                           dsme-cal.o dsmesock.o
-dsme_SO_LIBS            := dsme
-dsme_LIBS               := dl cal
-dsme: LD_EXTRA_GENFLAGS := -rdynamic $$(pkg-config --libs gthread-2.0)
-
-#logging.o:	C_EXTRA_DEFINES	:=	USE_STDERR
-dsme.o      : C_EXTRA_GENFLAGS := $$(pkg-config --cflags glib-2.0)
-mainloop.o  : C_EXTRA_GENFLAGS := $$(pkg-config --cflags glib-2.0)
-modulebase.o: C_EXTRA_GENFLAGS := $$(pkg-config --cflags glib-2.0)
-timers.o    : C_EXTRA_GENFLAGS := $$(pkg-config --cflags glib-2.0)
-dsmesock.o  : C_EXTRA_GENFLAGS := $$(pkg-config --cflags glib-2.0)
+## QUARANTINE # dsme
+## QUARANTINE dsme_C_OBJS             := dsme.o modulebase.o timers.o \
+## QUARANTINE                            logging.o oom.o mainloop.o \
+## QUARANTINE                            dsme-cal.o dsmesock.o
+## QUARANTINE dsme_SO_LIBS            := dsme
+## QUARANTINE dsme_LIBS               := dl cal
+## QUARANTINE dsme: LD_EXTRA_GENFLAGS := -rdynamic $$(pkg-config --libs gthread-2.0)
+## QUARANTINE 
+## QUARANTINE #logging.o:	C_EXTRA_DEFINES	:=	USE_STDERR
+## QUARANTINE dsme.o      : C_EXTRA_GENFLAGS := $$(pkg-config --cflags glib-2.0)
+## QUARANTINE mainloop.o  : C_EXTRA_GENFLAGS := $$(pkg-config --cflags glib-2.0)
+## QUARANTINE modulebase.o: C_EXTRA_GENFLAGS := $$(pkg-config --cflags glib-2.0)
+## QUARANTINE timers.o    : C_EXTRA_GENFLAGS := $$(pkg-config --cflags glib-2.0)
+## QUARANTINE dsmesock.o  : C_EXTRA_GENFLAGS := $$(pkg-config --cflags glib-2.0)
 
 # libdsme.so and libdsme.a
 protocol.o : C_EXTRA_GENFLAGS := -fPIC $$(pkg-config --cflags glib-2.0)
