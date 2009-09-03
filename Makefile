@@ -18,8 +18,11 @@ $(INSTALL_A_LIBRARIES) : INSTALL_DIR  := $(DESTDIR)/usr/lib
 INSTALL_SO_LIBRARIES                  := libdsme.so libdsme_dbus_if.so
 $(INSTALL_SO_LIBRARIES): INSTALL_PERM := 755
 $(INSTALL_SO_LIBRARIES): INSTALL_DIR  := $(DESTDIR)/usr/lib
-INSTALL_INCLUDES                      := include/dsme/protocol.h \
-                                         include/dsme/messages.h \
+INSTALL_INCLUDES                      := include/dsme/protocol.h     \
+                                         include/dsme/messages.h     \
+                                         include/dsme/processwd.h    \
+                                         include/dsme/state.h        \
+                                         include/dsme/state_states.h \
                                          modules/dsme_dbus_if.h
 $(INSTALL_INCLUDES)    : INSTALL_DIR  := $(DESTDIR)/usr/include/dsme
 #INSTALL_OTHER                         := README
