@@ -68,7 +68,7 @@ install:
 	# debian/tmp.
 	$(MAKE) install DESTDIR=$(CURDIR)/debian/tmp
 	#mkdir $(CURDIR)/debian/tmp/etc/dsme
-	install -m 440  lifeguard.uids $(CURDIR)/debian/tmp/etc/dsme/
+## QUARANTINE 	install -m 440  lifeguard.uids $(CURDIR)/debian/tmp/etc/dsme/
 
 	# install tests (if needed)
 ifneq (,$(findstring testcases,$(DEB_BUILD_OPTIONS)))

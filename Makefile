@@ -123,9 +123,9 @@ tags:
 doc:
 	doxygen
 
-local_install:
-	mkdir -p $(DESTDIR)/etc/dsme
-	install -m 600 -o $(INSTALL_OWNER) -g $(INSTALL_GROUP) lifeguard.uids $(DESTDIR)/etc/dsme
+## QUARANTINE local_install:
+## QUARANTINE 	mkdir -p $(DESTDIR)/etc/dsme
+## QUARANTINE 	install -m 600 -o $(INSTALL_OWNER) -g $(INSTALL_GROUP) lifeguard.uids $(DESTDIR)/etc/dsme
 
 
 .PHONY: test
