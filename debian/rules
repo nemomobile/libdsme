@@ -68,7 +68,6 @@ install:
 	# debian/tmp.
 	$(MAKE) install DESTDIR=$(CURDIR)/debian/tmp
 	#mkdir $(CURDIR)/debian/tmp/etc/dsme
-## QUARANTINE 	install -m 440  lifeguard.uids $(CURDIR)/debian/tmp/etc/dsme/
 
 	# install tests (if needed)
 ifneq (,$(findstring testcases,$(DEB_BUILD_OPTIONS)))
@@ -86,11 +85,6 @@ binary-arch: build install
 	dh_installchangelogs
 	dh_installdocs -XREADME
 	dh_installexamples
-## QUARANTINE 	dh_installinit -p dsme --no-start -- start 02 1 2 3 4 5 .
-## QUARANTINE 	dh_installinit -p dsme --name=dsme-dbus --no-start -- start 20 1 2 3 4 5 .
-## QUARANTINE 	dh_installupstart
-## QUARANTINE 	dh_installupstart --name=dsme-dbus
-## QUARANTINE 	dh_installupstart --name=dsme-thermal
 	dh_installman
 	dh_link
 	dh_strip --dbg-package=libdsme0.2.0

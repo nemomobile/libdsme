@@ -1,9 +1,8 @@
-libdsme (0.60.29+nmu1) unstable; urgency=low
+libdsme (0.60.29) unstable; urgency=low
 
-  * Non-maintainer upload.
   * Source pakcage split
 
- -- Simo Piiroinen <simo.piiroinen@nokia.com>  Thu, 03 Sep 2009 11:16:47 +0300
+ -- Semi Malinen <semi.malinen@nokia.com>  Thu, 03 Sep 2009 11:16:47 +0300
 
 dsme (0.60.28) unstable; urgency=low
 
