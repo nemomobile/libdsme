@@ -1,6 +1,6 @@
 libdsme (0.60.29) unstable; urgency=low
 
-  * Source pakcage split
+  * Fixes: NB#132619: Split libdsme into a separate source package
 
  -- Semi Malinen <semi.malinen@nokia.com>  Thu, 03 Sep 2009 11:16:47 +0300
 
