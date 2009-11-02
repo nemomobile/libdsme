@@ -1,3 +1,9 @@
+libdsme (0.61.0) unstable; urgency=low
+
+  * Release for Harmattan
+
+ -- Semi Malinen <semi@savu.europe.nokia.com>  Mon, 02 Nov 2009 15:48:09 +0000
+
 libdsme (0.60.29) unstable; urgency=low
 
   * Fixes: NB#132619: Split libdsme into a separate source package
