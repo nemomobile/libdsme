@@ -4,7 +4,7 @@
 A_LIBRARIES  := libdsme
 SO_LIBRARIES := libdsme libdsme_dbus_if
 
-VERSION := 0.60.28
+VERSION := 0.61.0
 
 #
 # Install files in this directory
