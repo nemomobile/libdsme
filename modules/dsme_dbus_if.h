@@ -39,6 +39,7 @@ extern const char dsme_req_shutdown[];
 extern const char dsme_state_req_denied_ind[];
 extern const char dsme_shutdown_ind[];
 extern const char dsme_thermal_shutdown_ind[];
+extern const char dsme_battery_empty_ind[];
 extern const char dsme_save_unsaved_data_ind[];
 
 #endif
