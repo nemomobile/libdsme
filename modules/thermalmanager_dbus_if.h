@@ -25,8 +25,8 @@
 #define THERMALMANAGER_DBUS_IF_H
 
 extern const char thermalmanager_service[];
-extern const char thermalmanager_sig_interface[];
-extern const char thermalmanager_sig_path[];
+extern const char thermalmanager_interface[];
+extern const char thermalmanager_path[];
 
 extern const char thermalmanager_state_change_ind[];
 extern const char thermalmanager_get_thermal_state[];

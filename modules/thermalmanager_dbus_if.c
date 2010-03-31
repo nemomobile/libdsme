@@ -25,8 +25,8 @@
 #include "thermalmanager_dbus_if.h"
 
 const char thermalmanager_service[]           = "com.nokia.thermalmanager";
-const char thermalmanager_sig_interface[]     = "com.nokia.thermalmanager";
-const char thermalmanager_sig_path[]          = "/com/nokia/thermalmanager";
+const char thermalmanager_interface[]         = "com.nokia.thermalmanager";
+const char thermalmanager_path[]              = "/com/nokia/thermalmanager";
 
 const char thermalmanager_state_change_ind[]  = "thermal_state_change_ind";
 const char thermalmanager_get_thermal_state[] = "get_thermal_state";
