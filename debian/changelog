@@ -1,3 +1,9 @@
+libdsme (0.61.2) unstable; urgency=low
+
+  * add D-Bus i/f for Thermal Manager
+
+ -- Semi Malinen <semi.malinen@nokia.com>  Wed, 31 Mar 2010 18:33:58 +0000
+
 libdsme (0.61.1) unstable; urgency=low
 
   * add battery_empty_ind
