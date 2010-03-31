@@ -2,9 +2,9 @@
 # Build targets
 #
 A_LIBRARIES  := libdsme
-SO_LIBRARIES := libdsme libdsme_dbus_if
+SO_LIBRARIES := libdsme libdsme_dbus_if libthermalmanager_dbus_if
 
-VERSION := 0.61.1
+VERSION := 0.61.2
 
 #
 # Install files in this directory
@@ -15,7 +15,9 @@ INSTALL_GROUP := $(shell id -g)
 
 INSTALL_A_LIBRARIES                   := libdsme.a
 $(INSTALL_A_LIBRARIES) : INSTALL_DIR  := $(DESTDIR)/usr/lib
-INSTALL_SO_LIBRARIES                  := libdsme.so libdsme_dbus_if.so
+INSTALL_SO_LIBRARIES                  := libdsme.so         \
+                                         libdsme_dbus_if.so \
+                                         libthermalmanager_dbus_if.so
 $(INSTALL_SO_LIBRARIES): INSTALL_PERM := 755
 $(INSTALL_SO_LIBRARIES): INSTALL_DIR  := $(DESTDIR)/usr/lib
 INSTALL_INCLUDES                      := include/dsme/protocol.h     \
@@ -23,13 +25,17 @@ INSTALL_INCLUDES                      := include/dsme/protocol.h     \
                                          include/dsme/processwd.h    \
                                          include/dsme/state.h        \
                                          include/dsme/state_states.h \
-                                         modules/dsme_dbus_if.h
+                                         modules/dsme_dbus_if.h      \
+                                         modules/thermalmanager_dbus_if.h
 $(INSTALL_INCLUDES)    : INSTALL_DIR  := $(DESTDIR)/usr/include/dsme
 #INSTALL_OTHER                         := README
 #README: INSTALL_DIR                   := $(DESTDIR)/usr/share/doc/dsme
-INSTALL_OTHER                         := dsme.pc dsme_dbus_if.pc
-dsme.pc                : INSTALL_DIR  := $(DESTDIR)/usr/lib/pkgconfig
-dsme_dbus_if.pc        : INSTALL_DIR  := $(DESTDIR)/usr/lib/pkgconfig
+INSTALL_OTHER                         := dsme.pc         \
+                                         dsme_dbus_if.pc \
+                                         thermalmanager_dbus_if.pc
+dsme.pc                   : INSTALL_DIR  := $(DESTDIR)/usr/lib/pkgconfig
+dsme_dbus_if.pc           : INSTALL_DIR  := $(DESTDIR)/usr/lib/pkgconfig
+thermalmanager_dbus_if.pc : INSTALL_DIR  := $(DESTDIR)/usr/lib/pkgconfig
 
 #
 # Compiler and tool flags
@@ -77,10 +83,10 @@ libdsme_dbus_if_C_OBJS                   := modules/dsme_dbus_if.o
 modules/dsme_dbus_if.o: C_EXTRA_GENFLAGS := -fPIC
 libdsme_dbus_if.so    : LIBRARY_VERSION  := 0.2.0
 
-# TODO: move dsme-exec-helper to modules/
-# dsme-exec-helper
-dsme-exec-helper_C_OBJS := dsme-exec-helper.o oom.o
-dsme-exec-helper.o : C_EXTRA_GENFLAGS := $$(pkg-config --cflags glib-2.0)
+# libthermalmanager_dbus_if.so
+libthermalmanager_dbus_if_C_OBJS := modules/thermalmanager_dbus_if.o
+modules/thermalmanager_dbus_if.o: C_EXTRA_GENFLAGS := -fPIC
+libthermalmanager_dbus_if.so    : LIBRARY_VERSION  := 0.2.0
 
 
 #
