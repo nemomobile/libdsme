@@ -39,7 +39,7 @@
 */
 
 typedef enum {
-#define DSME_STATE(STATE, VALUE) STATE = VALUE,
+#define DSME_STATE(STATE, VALUE) DSME_STATE_ ## STATE = VALUE,
 #include "state_states.h"
 #undef  DSME_STATE
 } dsme_state_t;
