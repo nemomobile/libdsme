@@ -32,6 +32,7 @@ extern const char dsme_req_path[];
 extern const char dsme_sig_path[];
 
 extern const char dsme_get_version[];
+extern const char dsme_get_state[];
 extern const char dsme_req_powerup[];
 extern const char dsme_req_reboot[];
 extern const char dsme_req_shutdown[];

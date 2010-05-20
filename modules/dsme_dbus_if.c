@@ -31,6 +31,7 @@ const char dsme_req_path[]              = "/com/nokia/dsme/request";
 const char dsme_sig_path[]              = "/com/nokia/dsme/signal";
 
 const char dsme_get_version[]           = "get_version";
+const char dsme_get_state[]             = "get_state";
 const char dsme_req_powerup[]           = "req_powerup";
 const char dsme_req_reboot[]            = "req_reboot";
 const char dsme_req_shutdown[]          = "req_shutdown";
