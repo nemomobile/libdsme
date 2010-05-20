@@ -1,3 +1,9 @@
+libdsme (0.61.4) unstable; urgency=low
+
+  * add dsme_state_change_ind and dsme_get_state
+
+ -- Semi Malinen <semi.malinen@nokia.com>  Thu, 20 May 2010 02:00:27 +0000
+
 libdsme (0.61.3) unstable; urgency=low
 
   * minor change: drop prefix from DSME internal state names
