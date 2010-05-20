@@ -40,3 +40,4 @@ const char dsme_shutdown_ind[]          = "shutdown_ind";
 const char dsme_thermal_shutdown_ind[]  = "thermal_shutdown_ind";
 const char dsme_battery_empty_ind[]     = "battery_empty_ind";
 const char dsme_save_unsaved_data_ind[] = "save_unsaved_data_ind";
+const char dsme_state_change_ind[]      = "state_change_ind";
