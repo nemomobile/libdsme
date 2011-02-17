@@ -22,6 +22,7 @@ $(INSTALL_SO_LIBRARIES): INSTALL_PERM := 755
 $(INSTALL_SO_LIBRARIES): INSTALL_DIR  := $(DESTDIR)/usr/lib
 INSTALL_INCLUDES                      := include/dsme/protocol.h     \
                                          include/dsme/messages.h     \
+                                         include/dsme/alarm_limit.h  \
                                          include/dsme/processwd.h    \
                                          include/dsme/state.h        \
                                          include/dsme/state_states.h \
@@ -74,7 +75,8 @@ endif
 # libdsme.so and libdsme.a
 protocol.o : C_EXTRA_GENFLAGS := -fPIC $$(pkg-config --cflags glib-2.0)
 message.o  : C_EXTRA_GENFLAGS := -fPIC
-libdsme_C_OBJS                := protocol.o message.o
+alarm_limit.o : C_EXTRA_GENFLAGS := -fPIC
+libdsme_C_OBJS                := protocol.o message.o alarm_limit.o
 libdsme_EXTRA_LDFLAGS         := $$(pkg-config --libs glib-2.0)
 libdsme.so : LIBRARY_VERSION  := 0.2.0
 
