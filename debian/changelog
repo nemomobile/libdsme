@@ -1,3 +1,9 @@
+libdsme (0.61.6) unstable; urgency=low
+
+  * add dsme_snooze_timeout_in_seconds() (Fixes: NB#218425)
+
+ -- Semi Malinen <semi.malinen@nokia.com>  Tue, 22 Feb 2011 08:55:04 +0000
+
 libdsme (0.61.5) unstable; urgency=low
 
   * add debian/api

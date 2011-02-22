@@ -4,7 +4,7 @@ libdir=${prefix}/lib
 
 Name: thermalmanager_dbus_if
 Description: Thermal Manager D-Bus interface dynamic library
-Version: 0.61.5
+Version: 0.61.6
 Requires:
 Libs: -L${libdir} -lthermalmanager_dbus_if
 Cflags: -I${includedir}
