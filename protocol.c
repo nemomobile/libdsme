@@ -43,6 +43,7 @@
 
 static GSList* connections = 0;
 
+const char* dsmesock_default_location = "/run/dsme.socket";
 
 dsmesock_connection_t* dsmesock_connect(void)
 {
@@ -52,8 +53,8 @@ dsmesock_connection_t* dsmesock_connect(void)
   const char*            dsmesock_filename = NULL;
 
   dsmesock_filename = getenv("DSME_SOCKFILE");
-  if (!dsmesock_filename) {
-      dsmesock_filename = "/tmp/dsmesock";
+  if (dsmesock_filename == 0 || *dsmesock_filename == '\0') {
+      dsmesock_filename = dsmesock_default_location;
   }
 
   if ((fd = socket(PF_UNIX, SOCK_STREAM, 0)) != -1) {

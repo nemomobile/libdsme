@@ -153,4 +153,9 @@ EXTERN_C void dsmesock_close(dsmesock_connection_t* conn);
 EXTERN_C const struct ucred* dsmesock_getucred(dsmesock_connection_t* conn);
 
 
+/**
+   Holds path to dsme socket default location
+*/
+EXTERN_C const char* dsmesock_default_location;
+
 #endif
