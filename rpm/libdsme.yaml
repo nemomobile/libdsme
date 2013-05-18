@@ -1,0 +1,25 @@
+Name: libdsme
+Summary: DSME dsmesock dynamic library
+Version: 0.61.7
+Release: 0
+Group: System/System Control
+License: LGPL
+URL: https://github.com/nemomobile/libdsme
+Sources:
+    - "%{name}-%{version}.tar.bz2"
+Description: |
+    This package contains dynamic libraries for programs that communicate with the
+    Device State Management Entity.
+
+PkgConfigBR:
+    - glib-2.0
+Configure: none
+UseAsNeeded: No
+SubPackages:
+    - Name: devel
+      Summary: Development files for dsme
+      Group: Development/Libraries
+      Description: |
+          This package contains headers and static libraries needed to develop programs
+          that want to communicate with the Device State Management Entity.
+
