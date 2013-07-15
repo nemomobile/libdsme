@@ -6,6 +6,8 @@
 build-stamp
 configure-stamp
 
+ut_libdsme
+
 debian/files
 debian/libdsme0.2.0-dbg.*
 debian/libdsme0.2.0-dbg/

@@ -3,6 +3,7 @@
 #
 A_LIBRARIES  := libdsme
 SO_LIBRARIES := libdsme libdsme_dbus_if libthermalmanager_dbus_if
+BINARIES := ut_libdsme
 
 VERSION := 0.61.6
 
@@ -37,6 +38,14 @@ INSTALL_OTHER                         := dsme.pc         \
 dsme.pc                   : INSTALL_DIR  := $(DESTDIR)/usr/lib/pkgconfig
 dsme_dbus_if.pc           : INSTALL_DIR  := $(DESTDIR)/usr/lib/pkgconfig
 thermalmanager_dbus_if.pc : INSTALL_DIR  := $(DESTDIR)/usr/lib/pkgconfig
+
+INSTALL_TEST_BINARIES                    := ut_libdsme
+$(INSTALL_TEST_BINARIES)  : INSTALL_DIR  := $(DESTDIR)/opt/tests/libdsme
+$(INSTALL_TEST_BINARIES)  : INSTALL_PERM := 755
+INSTALL_TEST_DEFINITION                  := tests/tests.xml
+$(INSTALL_TEST_DEFINITION): INSTALL_DIR  := $(DESTDIR)/opt/tests/libdsme
+INSTALL_OTHER                            += $(INSTALL_TEST_BINARIES) \
+                                            $(INSTALL_TEST_DEFINITION)
 
 #
 # Compiler and tool flags
@@ -90,6 +99,12 @@ libthermalmanager_dbus_if_C_OBJS := modules/thermalmanager_dbus_if.o
 modules/thermalmanager_dbus_if.o: C_EXTRA_GENFLAGS := -fPIC
 libthermalmanager_dbus_if.so    : LIBRARY_VERSION  := 0.2.0
 
+# ut_libdsme
+tests/ut_libdsme.o   : C_EXTRA_GENFLAGS  := $$(pkg-config --cflags glib-2.0)
+ut_libdsme_C_OBJS                        := tests/ut_libdsme.o
+ut_libdsme_SO_LIBS                       := dsme
+ut_libdsme           : LD_EXTRA_GENFLAGS := $$(pkg-config --libs glib-2.0) \
+                                            $$(pkg-config --libs check)
 
 #
 # This is the topdir for build
