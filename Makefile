@@ -137,3 +137,7 @@ test: all
 	make -C test depend
 	make -C test
 	make -C test run
+
+.PHONY: check
+check: all
+	for test in $(INSTALL_TEST_BINARIES); do LD_LIBRARY_PATH=".:${LD_LIBRARY_PATH}" ./$${test} || exit; done
