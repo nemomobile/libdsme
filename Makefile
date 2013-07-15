@@ -141,3 +141,23 @@ test: all
 .PHONY: check
 check: all
 	for test in $(INSTALL_TEST_BINARIES); do LD_LIBRARY_PATH=".:${LD_LIBRARY_PATH}" ./$${test} || exit; done
+
+COVERAGE_EXCLUDES = \
+    /usr/* \
+    /tests/*
+
+space :=
+space +=
+join-with = $(subst $(space),$1,$(strip $2))
+comma := ,
+
+# compile with 'make COVERAGE=1' first
+.PHONY: coverage
+coverage:
+	@echo "--- coverage: extracting info"
+	lcov -c -o lcov.info -d .
+	@echo "--- coverage: excluding $(call join-with,$(comma) ,$(COVERAGE_EXCLUDES))"
+	lcov -r lcov.info '$(call join-with,' ',$(COVERAGE_EXCLUDES))' -o lcov.info
+	@echo "--- coverage: generating html"
+	genhtml -o coverage lcov.info --demangle-cpp
+	@echo -e "--- coverage: done\\n\\n\\tfile://$(PWD)/coverage/index.html\\n"

@@ -6,6 +6,11 @@
 build-stamp
 configure-stamp
 
+*.gcda
+*.gcno
+lcov.info
+coverage
+
 ut_libdsme
 
 debian/files
