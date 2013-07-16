@@ -76,6 +76,10 @@ MKDEP_CXXFLAGS	=	$(addprefix -I,$(CXX_INCDIRS)) \
 LDFLAGS	=		$(LD_GENFLAGS) $(LD_EXTRA_GENFLAGS) \
 			$(addprefix -L,$(LD_LIBPATHS)) \
 			$(addprefix -L,$(LD_EXTRA_LIBPATHS))
+ifdef COVERAGE
+C_GENFLAGS += --coverage
+LD_GENFLAGS += --coverage
+endif
 
 
 #
