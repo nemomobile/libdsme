@@ -9,7 +9,7 @@ Name:       libdsme
 # << macros
 
 Summary:    DSME dsmesock dynamic library
-Version:    0.61.7
+Version:    0.61.8
 Release:    0
 Group:      System/System Control
 License:    LGPL
