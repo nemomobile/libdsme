@@ -108,7 +108,7 @@ typedef enum {
 
 typedef struct {
   DSMEMSG_PRIVATE_FIELDS
-  t_dsme_thermal_status status;
+  dsme_thermal_status status_t;
 } DSM_MSGTYPE_SET_THERMAL_STATUS;
 
 
