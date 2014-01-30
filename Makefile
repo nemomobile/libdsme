@@ -5,7 +5,7 @@ A_LIBRARIES  := libdsme
 SO_LIBRARIES := libdsme libdsme_dbus_if libthermalmanager_dbus_if
 BINARIES := ut_libdsme
 
-VERSION := 0.61.8
+VERSION := 0.62.0
 
 #
 # Install files in this directory
