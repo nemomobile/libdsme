@@ -15,7 +15,6 @@ Group:      System/System Control
 License:    LGPL
 URL:        https://github.com/nemomobile/libdsme
 Source0:    %{name}-%{version}.tar.bz2
-Source100:  libdsme.yaml
 Requires(post): /sbin/ldconfig
 Requires(postun): /sbin/ldconfig
 BuildRequires:  pkgconfig(glib-2.0)
