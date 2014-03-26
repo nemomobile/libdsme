@@ -106,9 +106,13 @@ typedef enum {
   DSM_THERMAL_STATUS_OVERHEATED = 2
 } dsme_thermal_status_t;
 
+#define DSM_TEMP_SENSOR_MAX_NAME_LEN 32
+
 typedef struct {
   DSMEMSG_PRIVATE_FIELDS
   dsme_thermal_status_t status;
+  int temperature;
+  char sensor_name[DSM_TEMP_SENSOR_MAX_NAME_LEN];
 } DSM_MSGTYPE_SET_THERMAL_STATUS;
 
 
