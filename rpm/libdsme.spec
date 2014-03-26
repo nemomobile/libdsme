@@ -9,13 +9,12 @@ Name:       libdsme
 # << macros
 
 Summary:    DSME dsmesock dynamic library
-Version:    0.62.0
+Version:    0.63.0
 Release:    0
 Group:      System/System Control
 License:    LGPL
 URL:        https://github.com/nemomobile/libdsme
 Source0:    %{name}-%{version}.tar.bz2
-Source100:  libdsme.yaml
 Requires(post): /sbin/ldconfig
 Requires(postun): /sbin/ldconfig
 BuildRequires:  pkgconfig(glib-2.0)
