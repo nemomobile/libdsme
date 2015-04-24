@@ -4,7 +4,7 @@ libdir=${prefix}/lib
 
 Name: dsme_dbus_if
 Description: DSME D-Bus interface dynamic library
-Version: 0.63.0
+Version: 0.63.2
 Requires:
 Libs: -L${libdir} -ldsme_dbus_if
 Cflags: -I${includedir}
