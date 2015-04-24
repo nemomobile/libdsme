@@ -28,7 +28,21 @@ extern const char thermalmanager_service[];
 extern const char thermalmanager_interface[];
 extern const char thermalmanager_path[];
 
+// Signals
 extern const char thermalmanager_state_change_ind[];
+
+// Methods
 extern const char thermalmanager_get_thermal_state[];
+extern const char thermalmanager_estimate_surface_temperature[];
+extern const char thermalmanager_core_temperature[];
+extern const char thermalmanager_battery_temperature[];
+extern const char thermalmanager_sensor_temperature[];
+
+// Possible values for the status
+extern const char thermalmanager_thermal_status_low[];
+extern const char thermalmanager_thermal_status_normal[];
+extern const char thermalmanager_thermal_status_warning[];
+extern const char thermalmanager_thermal_status_alert[];
+extern const char thermalmanager_thermal_status_fatal[];
 
 #endif
