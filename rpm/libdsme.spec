@@ -78,10 +78,9 @@ rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root,-)
-# >> files
-%{_libdir}/libdsme.so.0.2.0
-%{_libdir}/libdsme_dbus_if.so.0.2.0
-%{_libdir}/libthermalmanager_dbus_if.so.0.2.0
+%{_libdir}/libdsme.so.*
+%{_libdir}/libdsme_dbus_if.so.*
+%{_libdir}/libthermalmanager_dbus_if.so.*
 %doc debian/copyright
 %doc COPYING
 # << files
