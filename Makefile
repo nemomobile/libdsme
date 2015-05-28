@@ -97,7 +97,7 @@ libdsme_dbus_if.so    : LIBRARY_VERSION  := 0.2.0
 # libthermalmanager_dbus_if.so
 libthermalmanager_dbus_if_C_OBJS := modules/thermalmanager_dbus_if.o
 modules/thermalmanager_dbus_if.o: C_EXTRA_GENFLAGS := -fPIC
-libthermalmanager_dbus_if.so    : LIBRARY_VERSION  := 0.2.0
+libthermalmanager_dbus_if.so    : LIBRARY_VERSION  := 0.2.1
 
 # ut_libdsme
 tests/ut_libdsme.o   : C_EXTRA_GENFLAGS  := $$(pkg-config --cflags glib-2.0)
