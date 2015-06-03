@@ -2,14 +2,20 @@
 VERSION   := 0.62.0
 
 # Shared object version
-SO        := .so.0.2.0
+SOMAJOR   := .0
+SOMINOR   := .2
+SORELEASE := .0
+
+SOLINK    := .so
+SONAME    := .so$(SOMAJOR)
+SOVERS    := .so$(SOMAJOR)$(SOMINOR)$(SORELEASE)
 
 # Files to build / install
 TARGETS_LIB    += libdsme.a
 
-TARGETS_DSO    += libdsme$(SO)
-TARGETS_DSO    += libdsme_dbus_if$(SO)
-TARGETS_DSO    += libthermalmanager_dbus_if$(SO)
+TARGETS_DSO    += libdsme$(SOVERS)
+TARGETS_DSO    += libdsme_dbus_if$(SOVERS)
+TARGETS_DSO    += libthermalmanager_dbus_if$(SOVERS)
 
 INSTALL_HDR    += include/dsme/protocol.h
 INSTALL_HDR    += include/dsme/messages.h
@@ -69,7 +75,8 @@ install_devel::
 	install -m 644 $(TARGETS_LIB) $(DESTDIR)/usr/lib
 	# symlinks for dynamic linking
 	for f in $(TARGETS_DSO); do \
-	  ln -sf $$f $(DESTDIR)/usr/lib/$$(basename $$f $(SO)).so;\
+	  ln -sf $$(basename $$f $(SOVERS))$(SONAME) \
+	    $(DESTDIR)/usr/lib/$$(basename $$f $(SOVERS))$(SOLINK); \
 	done
 
 install_tests::
@@ -83,11 +90,11 @@ install_tests::
 # Build rules
 # ----------------------------------------------------------------------------
 
-%.pic.o : %.c ;	$(CC) -o $@ -c $< -fPIC $(CPPFLAGS) $(CFLAGS)
-%.o     : %.c ; $(CC) -o $@ -c $< $(CPPFLAGS) $(CFLAGS)
-%$(SO)  :     ; $(CC) -o $@ -shared -Wl,-soname,$@ $^ $(LDFLAGS) $(LDLIBS)
-%       : %.o ; $(CC) -o $@ $^ $(LDFLAGS) $(LDLIBS)
-%.a     :     ; $(AR) ru $@ $^
+%.pic.o     : %.c ; $(CC) -o $@ -c $< -fPIC $(CPPFLAGS) $(CFLAGS)
+%.o         : %.c ; $(CC) -o $@ -c $< $(CPPFLAGS) $(CFLAGS)
+%$(SOVERS)  :     ; $(CC) -o $@ -shared -Wl,-soname,$*$(SONAME) $^ $(LDFLAGS) $(LDLIBS)
+%           : %.o ; $(CC) -o $@ $^ $(LDFLAGS) $(LDLIBS)
+%.a         :     ; $(AR) ru $@ $^
 
 # ----------------------------------------------------------------------------
 # Common options
@@ -102,34 +109,34 @@ LDFLAGS  += -g
 LDFLAGS  += -Wl,--as-needed
 
 # ----------------------------------------------------------------------------
-# libdsme$(SO) and libdsme.a
+# libdsme$(SOVERS) and libdsme.a
 # ----------------------------------------------------------------------------
 
 libdsme_OBJ += protocol.pic.o message.pic.o alarm_limit.pic.o
 libdsme_PC  += glib-2.0
 
-libdsme$(SO) : CFLAGS += $$(pkg-config --cflags $(libdsme_PC))
-libdsme$(SO) : LDLIBS += $$(pkg-config --libs $(libdsme_PC))
-libdsme$(SO) : $(libdsme_OBJ)
+libdsme$(SOVERS) : CFLAGS += $$(pkg-config --cflags $(libdsme_PC))
+libdsme$(SOVERS) : LDLIBS += $$(pkg-config --libs $(libdsme_PC))
+libdsme$(SOVERS) : $(libdsme_OBJ)
 
 libdsme.a : CFLAGS += $$(pkg-config --cflags $(libdsme_PC))
 libdsme.a : $(patsubst %.pic.o, %.o, $(libdsme_OBJ))
 
 # ----------------------------------------------------------------------------
-# libdsme_dbus_if$(SO)
+# libdsme_dbus_if$(SOVERS)
 # ----------------------------------------------------------------------------
 
 libdsme_dbus_if_OBJ += modules/dsme_dbus_if.pic.o
 
-libdsme_dbus_if$(SO) : $(libdsme_dbus_if_OBJ)
+libdsme_dbus_if$(SOVERS) : $(libdsme_dbus_if_OBJ)
 
 # ----------------------------------------------------------------------------
-# libthermalmanager_dbus_if$(SO)
+# libthermalmanager_dbus_if$(SOVERS)
 # ----------------------------------------------------------------------------
 
 libthermalmanager_dbus_if_OBJ += modules/thermalmanager_dbus_if.pic.o
 
-libthermalmanager_dbus_if$(SO) : $(libthermalmanager_dbus_if_OBJ)
+libthermalmanager_dbus_if$(SOVERS) : $(libthermalmanager_dbus_if_OBJ)
 
 # ----------------------------------------------------------------------------
 # ut_libdsme
@@ -140,4 +147,4 @@ ut_libdsme_PC  += glib-2.0 check
 
 tests/ut_libdsme : CFLAGS += $$(pkg-config --cflags $(ut_libdsme_PC))
 tests/ut_libdsme : LDLIBS += $$(pkg-config --libs $(ut_libdsme_PC))
-tests/ut_libdsme : $(ut_libdsme_OBJ) libdsme$(SO)
+tests/ut_libdsme : $(ut_libdsme_OBJ) libdsme$(SOVERS)
