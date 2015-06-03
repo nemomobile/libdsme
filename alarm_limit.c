@@ -22,7 +22,7 @@
    License along with Dsme.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "dsme/alarm_limit.h"
+#include "include/dsme/alarm_limit.h"
 
 #define SNOOZE_TIMEOUT 120 /* 2 minutes */
 

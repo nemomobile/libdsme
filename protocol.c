@@ -27,8 +27,8 @@
 #define _GNU_SOURCE
 #endif
 
-#include "dsme/protocol.h"
-#include "dsme/messages.h"
+#include "include/dsme/protocol.h"
+#include "include/dsme/messages.h"
 
 #include <glib.h>
 #include <sys/types.h>

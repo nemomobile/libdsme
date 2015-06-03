@@ -1,163 +1,143 @@
-#
-# Build targets
-#
-A_LIBRARIES  := libdsme
-SO_LIBRARIES := libdsme libdsme_dbus_if libthermalmanager_dbus_if
-BINARIES := ut_libdsme
+# Package version
+VERSION   := 0.62.0
 
-VERSION := 0.62.0
+# Shared object version
+SO        := .so.0.2.0
 
-#
-# Install files in this directory
-#
-INSTALL_PERM  := 644
-INSTALL_OWNER := $(shell id -u)
-INSTALL_GROUP := $(shell id -g)
+# Files to build / install
+TARGETS_LIB    += libdsme.a
 
-INSTALL_A_LIBRARIES                   := libdsme.a
-$(INSTALL_A_LIBRARIES) : INSTALL_DIR  := $(DESTDIR)/usr/lib
-INSTALL_SO_LIBRARIES                  := libdsme.so         \
-                                         libdsme_dbus_if.so \
-                                         libthermalmanager_dbus_if.so
-$(INSTALL_SO_LIBRARIES): INSTALL_PERM := 755
-$(INSTALL_SO_LIBRARIES): INSTALL_DIR  := $(DESTDIR)/usr/lib
-INSTALL_INCLUDES                      := include/dsme/protocol.h     \
-                                         include/dsme/messages.h     \
-                                         include/dsme/alarm_limit.h  \
-                                         include/dsme/processwd.h    \
-                                         include/dsme/state.h        \
-                                         include/dsme/state_states.h \
-                                         modules/dsme_dbus_if.h      \
-                                         modules/thermalmanager_dbus_if.h
-$(INSTALL_INCLUDES)    : INSTALL_DIR  := $(DESTDIR)/usr/include/dsme
-#INSTALL_OTHER                         := README
-#README: INSTALL_DIR                   := $(DESTDIR)/usr/share/doc/dsme
-INSTALL_OTHER                         := dsme.pc         \
-                                         dsme_dbus_if.pc \
-                                         thermalmanager_dbus_if.pc
-dsme.pc                   : INSTALL_DIR  := $(DESTDIR)/usr/lib/pkgconfig
-dsme_dbus_if.pc           : INSTALL_DIR  := $(DESTDIR)/usr/lib/pkgconfig
-thermalmanager_dbus_if.pc : INSTALL_DIR  := $(DESTDIR)/usr/lib/pkgconfig
+TARGETS_DSO    += libdsme$(SO)
+TARGETS_DSO    += libdsme_dbus_if$(SO)
+TARGETS_DSO    += libthermalmanager_dbus_if$(SO)
 
-INSTALL_TEST_BINARIES                    := ut_libdsme
-$(INSTALL_TEST_BINARIES)  : INSTALL_DIR  := $(DESTDIR)/opt/tests/libdsme
-$(INSTALL_TEST_BINARIES)  : INSTALL_PERM := 755
-INSTALL_TEST_DEFINITION                  := tests/tests.xml
-$(INSTALL_TEST_DEFINITION): INSTALL_DIR  := $(DESTDIR)/opt/tests/libdsme
-INSTALL_OTHER                            += $(INSTALL_TEST_BINARIES) \
-                                            $(INSTALL_TEST_DEFINITION)
+INSTALL_HDR    += include/dsme/protocol.h
+INSTALL_HDR    += include/dsme/messages.h
+INSTALL_HDR    += include/dsme/alarm_limit.h
+INSTALL_HDR    += include/dsme/processwd.h
+INSTALL_HDR    += include/dsme/state.h
+INSTALL_HDR    += include/dsme/state_states.h
+INSTALL_HDR    += modules/dsme_dbus_if.h
+INSTALL_HDR    += modules/thermalmanager_dbus_if.h
 
-#
-# Compiler and tool flags
-# C_OPTFLAGS are not used for debug builds (ifdef DEBUG)
-# C_DBGFLAGS are not used for normal builds
-#
-C_GENFLAGS     := -DPRG_VERSION=$(VERSION) -pthread -g \
-                  -Wall -Wwrite-strings -Wmissing-prototypes -Werror# -pedantic
-C_OPTFLAGS     := -O2 -s
-C_DBGFLAGS     := -g -DDEBUG -DDSME_LOG_ENABLE
-C_DEFINES      := DSME_POSIX_TIMER DSME_WD_SYNC DSME_BMEIPC
-C_INCDIRS      := $(TOPDIR)/include $(TOPDIR)/modules $(TOPDIR) 
-MKDEP_INCFLAGS := $$(pkg-config --cflags-only-I glib-2.0)
+INSTALL_PC     += dsme.pc
+INSTALL_PC     += dsme_dbus_if.pc
+INSTALL_PC     += thermalmanager_dbus_if.pc
 
-LD_GENFLAGS := -pthread
-LD_LIBPATHS := $(TOPDIR)
+TARGETS_UT_BIN += tests/ut_libdsme
+INSTALL_UT_XML += tests/tests.xml
 
-# If OSSO_DEBUG is defined, compile in the logging
-#ifdef OSSO_LOG
-C_OPTFLAGS += -DDSME_LOG_ENABLE
-#endif
+TARGETS_ALL    += $(TARGETS_LIB) $(TARGETS_DSO) $(TARGETS_UT_BIN)
 
-ifneq (,$(findstring DSME_BMEIPC,$(C_DEFINES)))
-export DSME_BMEIPC = yes
-endif
+# Dummy default install dir - override from packaging scripts
+DESTDIR ?= /tmp/libdsme-test-install
 
-ifneq (,$(findstring DSME_MEMORY_THERMAL_MGMT,$(C_DEFINES)))
-export DSME_MEMORY_THERMAL_MGMT = yes
-endif
+# ----------------------------------------------------------------------------
+# Top level targets
+# ----------------------------------------------------------------------------
 
-#
-# Target composition and overrides
-#
+.PHONY: build install clean distclean mostlyclean
 
+build:: $(TARGETS_ALL)
 
-# libdsme.so and libdsme.a
-protocol.o : C_EXTRA_GENFLAGS := -fPIC $$(pkg-config --cflags glib-2.0)
-message.o  : C_EXTRA_GENFLAGS := -fPIC
-alarm_limit.o : C_EXTRA_GENFLAGS := -fPIC
-libdsme_C_OBJS                := protocol.o message.o alarm_limit.o
-libdsme_EXTRA_LDFLAGS         := $$(pkg-config --libs glib-2.0)
-libdsme.so : LIBRARY_VERSION  := 0.2.0
+install:: build
 
-# libdsme_dbus_if.so
-libdsme_dbus_if_C_OBJS                   := modules/dsme_dbus_if.o
-modules/dsme_dbus_if.o: C_EXTRA_GENFLAGS := -fPIC
-libdsme_dbus_if.so    : LIBRARY_VERSION  := 0.2.0
+clean:: mostlyclean
+	$(RM) $(TARGETS_ALL)
 
-# libthermalmanager_dbus_if.so
-libthermalmanager_dbus_if_C_OBJS := modules/thermalmanager_dbus_if.o
-modules/thermalmanager_dbus_if.o: C_EXTRA_GENFLAGS := -fPIC
-libthermalmanager_dbus_if.so    : LIBRARY_VERSION  := 0.2.0
+distclean:: clean
 
+mostlyclean::
+	$(RM) *.o *~ */*.o */*~
+
+install :: install_main install_devel install_tests
+
+install_main::
+	# dynamic libraries
+	install -d -m 755 $(DESTDIR)/usr/lib
+	install -m 644 $(TARGETS_DSO) $(DESTDIR)/usr/lib
+
+install_devel::
+	# headers
+	install -d -m 755 $(DESTDIR)/usr/include/dsme
+	install -m 644 $(INSTALL_HDR) $(DESTDIR)/usr/include/dsme
+	# pkg config
+	install -d -m 755 $(DESTDIR)/usr/lib/pkgconfig
+	install -m 644 $(INSTALL_PC) $(DESTDIR)/usr/lib/pkgconfig
+	# static libraries
+	install -d -m 755 $(DESTDIR)/usr/lib
+	install -m 644 $(TARGETS_LIB) $(DESTDIR)/usr/lib
+	# symlinks for dynamic linking
+	for f in $(TARGETS_DSO); do \
+	  ln -sf $$f $(DESTDIR)/usr/lib/$$(basename $$f $(SO)).so;\
+	done
+
+install_tests::
+	# xml
+	install -d -m 755 $(DESTDIR)/opt/tests/libdsme
+	install -m644 $(INSTALL_UT_XML) $(DESTDIR)/opt/tests/libdsme
+	# binary
+	install -m644 $(TARGETS_UT_BIN) $(DESTDIR)/opt/tests/libdsme
+
+# ----------------------------------------------------------------------------
+# Build rules
+# ----------------------------------------------------------------------------
+
+%.pic.o : %.c ;	$(CC) -o $@ -c $< -fPIC $(CPPFLAGS) $(CFLAGS)
+%.o     : %.c ; $(CC) -o $@ -c $< $(CPPFLAGS) $(CFLAGS)
+%$(SO)  :     ; $(CC) -o $@ -shared -Wl,-soname,$@ $^ $(LDFLAGS) $(LDLIBS)
+%       : %.o ; $(CC) -o $@ $^ $(LDFLAGS) $(LDLIBS)
+%.a     :     ; $(AR) ru $@ $^
+
+# ----------------------------------------------------------------------------
+# Common options
+# ----------------------------------------------------------------------------
+
+CFLAGS   += -O2
+CFLAGS   += -Wall -Wwrite-strings -Wmissing-prototypes -Werror
+
+CFLAGS   += -g
+LDFLAGS  += -g
+
+LDFLAGS  += -Wl,--as-needed
+
+# ----------------------------------------------------------------------------
+# libdsme$(SO) and libdsme.a
+# ----------------------------------------------------------------------------
+
+libdsme_OBJ += protocol.pic.o message.pic.o alarm_limit.pic.o
+libdsme_PC  += glib-2.0
+
+libdsme$(SO) : CFLAGS += $$(pkg-config --cflags $(libdsme_PC))
+libdsme$(SO) : LDLIBS += $$(pkg-config --libs $(libdsme_PC))
+libdsme$(SO) : $(libdsme_OBJ)
+
+libdsme.a : CFLAGS += $$(pkg-config --cflags $(libdsme_PC))
+libdsme.a : $(patsubst %.pic.o, %.o, $(libdsme_OBJ))
+
+# ----------------------------------------------------------------------------
+# libdsme_dbus_if$(SO)
+# ----------------------------------------------------------------------------
+
+libdsme_dbus_if_OBJ += modules/dsme_dbus_if.pic.o
+
+libdsme_dbus_if$(SO) : $(libdsme_dbus_if_OBJ)
+
+# ----------------------------------------------------------------------------
+# libthermalmanager_dbus_if$(SO)
+# ----------------------------------------------------------------------------
+
+libthermalmanager_dbus_if_OBJ += modules/thermalmanager_dbus_if.pic.o
+
+libthermalmanager_dbus_if$(SO) : $(libthermalmanager_dbus_if_OBJ)
+
+# ----------------------------------------------------------------------------
 # ut_libdsme
-tests/ut_libdsme.o   : C_EXTRA_GENFLAGS  := $$(pkg-config --cflags glib-2.0)
-ut_libdsme_C_OBJS                        := tests/ut_libdsme.o
-ut_libdsme_SO_LIBS                       := dsme
-ut_libdsme           : LD_EXTRA_GENFLAGS := $$(pkg-config --libs glib-2.0) \
-                                            $$(pkg-config --libs check)
+# ----------------------------------------------------------------------------
 
-#
-# This is the topdir for build
-#
-TOPDIR := $(shell /bin/pwd)
+ut_libdsme_OBJ += tests/ut_libdsme.o
+ut_libdsme_PC  += glib-2.0 check
 
-#
-# Non-target files/directories to be deleted by distclean
-#
-DISTCLEAN_DIRS	:=	doc tags
-
-#DISTCLN_SUBDIRS := _distclean_tests
-
-#
-# Actual rules
-#
-include $(TOPDIR)/Rules.make
-
-.PHONY: tags
-tags:
-	find . -name '*.[hc]'  |xargs ctags
-
-.PHONY: doc
-doc:
-	doxygen
-
-
-.PHONY: test
-test: all
-	make -C test depend
-	make -C test
-	make -C test run
-
-.PHONY: check
-check: all
-	for test in $(INSTALL_TEST_BINARIES); do LD_LIBRARY_PATH=".:${LD_LIBRARY_PATH}" ./$${test} || exit; done
-
-COVERAGE_EXCLUDES = \
-    /usr/* \
-    /tests/*
-
-space :=
-space +=
-join-with = $(subst $(space),$1,$(strip $2))
-comma := ,
-
-# compile with 'make COVERAGE=1' first
-.PHONY: coverage
-coverage:
-	@echo "--- coverage: extracting info"
-	lcov -c -o lcov.info -d .
-	@echo "--- coverage: excluding $(call join-with,$(comma) ,$(COVERAGE_EXCLUDES))"
-	lcov -r lcov.info '$(call join-with,' ',$(COVERAGE_EXCLUDES))' -o lcov.info
-	@echo "--- coverage: generating html"
-	genhtml -o coverage lcov.info --demangle-cpp
-	@echo -e "--- coverage: done\\n\\n\\tfile://$(PWD)/coverage/index.html\\n"
+tests/ut_libdsme : CFLAGS += $$(pkg-config --cflags $(ut_libdsme_PC))
+tests/ut_libdsme : LDLIBS += $$(pkg-config --libs $(ut_libdsme_PC))
+tests/ut_libdsme : $(ut_libdsme_OBJ) libdsme$(SO)
