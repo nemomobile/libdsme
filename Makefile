@@ -3,7 +3,7 @@ VERSION   := 0.63.2
 
 # Shared object version
 SOMAJOR   := .0
-SOMINOR   := .2
+SOMINOR   := .3
 SORELEASE := .0
 
 SOLINK    := .so
