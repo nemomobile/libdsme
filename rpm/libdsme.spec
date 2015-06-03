@@ -40,6 +40,7 @@ This package contains test suite for libdsme.
 %setup -q -n %{name}-%{version}
 
 %build
+./verify_version
 unset LD_AS_NEEDED
 make %{?jobs:-j%jobs}
 
