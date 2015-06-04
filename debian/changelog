@@ -1,3 +1,17 @@
+libdsme (0.64.0) unstable; urgency=low
+
+  * [packaging] Use wildcards for filename matching (Contributes to JB#12048)
+  * [spec] Remove spectacle cruft (Contributes to JB#12048)
+  * [build] Rewrite Makefile
+  * [cleanup] Remove .gitignore
+  * [packaging] Fix soname used by the libraries. Contributes to JB#12048
+  * [packaging] Bring version number in Makefile up to date
+  * [packaging] Make sure the various version numbers stay in sync
+  * [build] Bump dynamic library versions to 0.3.0. Contributes to JB#12048
+  * [cleanup] Remove unsused .todo file
+
+ -- Simo Piiroinen <simo.piiroinen@jollamobile.com>  Thu, 04 Jun 2015 11:30:45 +0300
+
 libdsme (0.61.6) unstable; urgency=low
 
   * add dsme_snooze_timeout_in_seconds() (Fixes: NB#218425)
