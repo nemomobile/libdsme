@@ -39,9 +39,9 @@
 #include <sys/stat.h>
 #include <sys/wait.h>
 
-#include "dsme/messages.h"
-#include "dsme/protocol.h"
-#include "dsme/state.h"
+#include "../include/dsme/messages.h"
+#include "../include/dsme/protocol.h"
+#include "../include/dsme/state.h"
 
 static const char* const TMP_SOCKFILE = "/tmp/ut_libdsme.sock";
 

@@ -22,7 +22,7 @@
    License along with Dsme.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "dsme/messages.h"
+#include "include/dsme/messages.h"
 
 #include <stdlib.h>
 

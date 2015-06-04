@@ -30,7 +30,7 @@
 #define _GNU_SOURCE
 #endif
 
-#include "dsme/messages.h"
+#include "messages.h"
 #include <stdbool.h>
 
 /**
