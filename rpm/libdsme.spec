@@ -62,12 +62,17 @@ rm -rf %{buildroot}
 
 %files devel
 %defattr(-,root,root,-)
+%dir %{_includedir}/dsme
 %{_includedir}/dsme/*
 %{_libdir}/libdsme.so
 %{_libdir}/libdsme_dbus_if.so
 %{_libdir}/libthermalmanager_dbus_if.so
+%dir %{_libdir}/pkgconfig
 %{_libdir}/pkgconfig/*
 
 %files tests
 %defattr(-,root,root,-)
+%dir /opt
+%dir /opt/tests
+%dir /opt/tests/libdsme
 /opt/tests/libdsme/*
