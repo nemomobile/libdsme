@@ -1,3 +1,11 @@
+libdsme (0.64.1) unstable; urgency=low
+
+  * [packaging] Add missing execute bit to unit test binary. Fixes JB#29776
+  * [packaging] Make rpms own the directories where files are installed.
+     Contributes to JB#29776
+
+ -- Simo Piiroinen <simo.piiroinen@jollamobile.com>  Wed, 10 Jun 2015 10:03:43 +0300
+
 libdsme (0.64.0) unstable; urgency=low
 
   * [packaging] Use wildcards for filename matching (Contributes to JB#12048)
