@@ -84,7 +84,7 @@ install_tests::
 	install -d -m 755 $(DESTDIR)/opt/tests/libdsme
 	install -m644 $(INSTALL_UT_XML) $(DESTDIR)/opt/tests/libdsme
 	# binary
-	install -m644 $(TARGETS_UT_BIN) $(DESTDIR)/opt/tests/libdsme
+	install -m755 $(TARGETS_UT_BIN) $(DESTDIR)/opt/tests/libdsme
 
 # ----------------------------------------------------------------------------
 # Build rules
