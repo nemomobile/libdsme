@@ -1,3 +1,0 @@
-debian/tmp/usr/lib/libdsme.so.*
-debian/tmp/usr/lib/libdsme_dbus_if.so.*
-debian/tmp/usr/lib/libthermalmanager_dbus_if.so.*
